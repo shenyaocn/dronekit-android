@@ -70,7 +70,7 @@ android {
         variant.outputs.each { output ->
             def file = output.outputFile
             if (file != null && file.name.endsWith('.aar')) {
-                output.outputFile = new File(file.parent, "${PUBLISH_ARTIFACT_ID}.${PUBLISH_VERSION}.aar")
+                output.outputFileName = "${PUBLISH_ARTIFACT_ID}.${PUBLISH_VERSION}.aar"
             }
         }
     }
@@ -94,7 +94,7 @@ android {
     testOptions {
         unitTests.returnDefaultValues = true
     }
-    buildToolsVersion '24.0.1'
+    buildToolsVersion '27.0.3'
 }
 
 dependencies {
@@ -113,14 +113,14 @@ dependencies {
 
     compile 'org.droidplanner.android:usb-serial-android:0.1.0'
 
-    debugCompile project(':Mavlink')
+    compile project(':Mavlink')
 //    sitlCompile project(':Mavlink')
 
     compile files('libs/Mavlink.jar')
     compile files('libs/d2xx.jar')
 
-    androidTestCompile 'junit:junit:4.12'
-    androidTestCompile "org.robolectric:robolectric:3.0"
+//    androidTestCompile 'junit:junit:4.12'
+//    androidTestCompile "org.robolectric:robolectric:3.0"
 }
 
 def getSoloLinkIp() {
@@ -135,7 +135,7 @@ def getLocalIp() {
     }
 }
 
-evaluationDependsOn ':Mavlink'
-assemble.dependsOn ':Mavlink:jar'
+//evaluationDependsOn ':Mavlink'
+//assemble.dependsOn ':Mavlink:jar'
 
 apply from: "$projectDir/maven-push.gradle"
